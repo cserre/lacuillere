@@ -1,0 +1,13 @@
+<div class="text-center">
+  <h3>Add your review</h3>
+</div>
+<div>
+  <%= simple_form_for([@restaurant, @review]) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :content, label: "Your comment" %>
+    <%= f.input :rating, collection: 0..5 %>
+
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  <% end %>
+</div>

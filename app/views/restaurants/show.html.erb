@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row text-center">
+    <div class="col-lg-6 col-lg-offset-3">
+      <div class="card">
+        <% if @restaurant.reviews.any? %>
+          <% rating = 0 %>
+          <% array = @restaurant.reviews.map(&:rating).compact %>
+          <% rating = array.inject(:+) / array.size %>
+        <% end %>
+        <h1><%= @restaurant.name %></h1>
+        <p><%= @restaurant.category.upcase %> - <%= ("<i class='fa fa-star' style='color: #FFCE54;'></i>" * rating).html_safe %></p>
+        <p><%= @restaurant.phone_number %></p>
+        <p><%= @restaurant.address %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+      <div class="card">
+        <div class="text-center">
+          <h2>Reviews</h2>
+          <h2><%= link_to ("<i class='fa fa-plus-square-o'></i>").html_safe, '#new-review' %></h2>
+        </div>
+
+        <% if @restaurant.reviews.any? %>
+          <% @restaurant.reviews.each do |review| %>
+            <% rating = review.rating.nil? ? 0 : review.rating %>
+            <p><%= ("<i class='fa fa-star' style='color: #FFCE54;'></i>" * rating).html_safe %> - <%= review.content %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="new-review">
+    <div class="col-lg-6 col-lg-offset-3">
+      <div class="card">
+        <%= render "reviews/new" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <% @restaurants.reverse.each do |restaurant| %>
+
+      <% if restaurant.reviews.any? %>
+        <% array = restaurant.reviews.map(&:rating).compact %>
+        <% rating = array.inject(:+) / array.size %>
+      <% end %>
+
+      <div class="col-lg-4">
+        <div class="card">
+          <%= link_to restaurant_path(restaurant) do %>
+            <h2><%= restaurant.name %></h2>
+          <% end %>
+          <p><%= restaurant.category.upcase %> - <%= ("<i class='fa fa-star' style='color: #FFCE54;'></i>" * rating.to_i).html_safe %></p>
+          <p><%= restaurant.phone_number %></p>
+          <p><%= restaurant.address %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
